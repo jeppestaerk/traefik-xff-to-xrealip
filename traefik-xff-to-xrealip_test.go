@@ -1,4 +1,4 @@
-package traefik_xff_to_xrealip
+package traefikxfftoxrealip
 
 import (
 	"context"
@@ -18,6 +18,6 @@ func TestXRealIpRewrite(t *testing.T) {
 			t.Errorf("expected X-Real-Ip = 203.0.113.5, got %s", ip)
 		}
 	})
-	mw, _ := New(context.Background(), CreateConfig(), next)
+	mw, _ := New(context.Background(), CreateConfig(), next, "test")
 	mw.ServeHTTP(rec, req)
 }
