@@ -1,17 +1,17 @@
-# traefik-xff-to-xrealip
+# 🎯 Traefik X-Real-IP from X-Forwarded-For Plugin
 
-A [Traefik](https://traefik.io) plugin that sets the `X-Real-Ip` header based on a **configurable IP address** (by index/depth) in the `X-Forwarded-For` header. By default, it uses the first IP.
+A [Traefik](https://traefik.io) plugin that intelligently sets the `X-Real-Ip` header by selecting a **configurable IP address** (by index/depth) from the `X-Forwarded-For` header. By default, it uses the first IP, ensuring your backend services see the correct client IP, even behind multiple proxies! 🚀
 
 ## 🔧 What It Does
 
 For incoming requests, this plugin:
 
-- Looks for the `X-Forwarded-For` header.
-- Splits the header value by commas to get a list of IP addresses.
-- Extracts an IP from this list based on the configured `depth` (index). Defaults to `depth: 0` (the first IP).
-- Overwrites `X-Real-Ip` with that value if the depth is valid for the list of IPs.
+-   🕵️‍♂️ Looks for the `X-Forwarded-For` header.
+-   🔪 Splits the header value by commas to get a list of IP addresses.
+-   🎯 Extracts an IP from this list based on the configured `depth` (index). Defaults to `depth: 0` (the first IP).
+-   ✍️ Overwrites `X-Real-Ip` with that value if the depth is valid for the list of IPs.
 
-## 🧪 Example
+## 🧪 Examples
 
 ### Default Behavior (depth: 0)
 
@@ -25,7 +25,7 @@ X-Forwarded-For: 203.0.113.5, 10.0.0.1, 192.168.1.100
 X-Real-Ip: 203.0.113.5
 ```
 
-### Configured Depth (e.g., depth: 1)
+### Configured Depth (e.g., `depth: 1`)
 
 #### Incoming Request:
 ```
