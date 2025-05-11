@@ -16,7 +16,7 @@ type Middleware struct {
 	next http.Handler
 }
 
-func New(_ context.Context, _ *Config, next http.Handler) (http.Handler, error) {
+func New(_ context.Context, _ *Config, next http.Handler, _ string) (http.Handler, error) {
 	return &Middleware{next: next}, nil
 }
 
