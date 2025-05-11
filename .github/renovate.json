@@ -5,19 +5,27 @@
   "dependencyDashboardApproval": false,
   "dependencyDashboardAutoclose": true,
   "prCreation": "immediate",
-  "labels": ["dependencies", "no-stale"],
+  "labels": [
+    "dependencies",
+    "no-stale"
+  ],
   "commitMessagePrefix": "⬆️",
   "commitMessageTopic": "{{depName}}",
-  "extends": ["config:recommended"],
+  "extends": [
+    "config:recommended"
+  ],
   "prConcurrentLimit": 10,
   "prHourlyLimit": 5,
   "platformAutomerge": true,
   "automerge": true,
   "automergeType": "pr",
   "automergeStrategy": "squash",
-  "regexManagers": [
+  "customManagers": [
     {
-      "fileMatch": ["^\\.github/workflows/[^/]+\\.ya?ml$"],
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/^\\.github/workflows/[^/]+\\.ya?ml$/"
+      ],
       "matchStrings": [
         "env:\\s*(?:[^#\\n]*\\s+)*GOLANGCI_LINT_VERSION: (?<currentValue>.*?)\\s"
       ],
@@ -27,7 +35,10 @@
       "extractVersionTemplate": "^v(?<version>.*)$"
     },
     {
-      "fileMatch": ["^\\.github/workflows/[^/]+\\.ya?ml$"],
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/^\\.github/workflows/[^/]+\\.ya?ml$/"
+      ],
       "matchStrings": [
         "env:\\s*(?:[^#\\n]*\\s+)*YAEGI_VERSION: (?<currentValue>.*?)\\s"
       ],
@@ -37,7 +48,10 @@
       "extractVersionTemplate": "^v(?<version>.*)$"
     },
     {
-      "fileMatch": ["^\\.github/workflows/[^/]+\\.ya?ml$"],
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/^\\.github/workflows/[^/]+\\.ya?ml$/"
+      ],
       "matchStrings": [
         "go-version: ['\"]?(?<currentValue>[\\d.]+)"
       ],
@@ -46,7 +60,10 @@
       "versioningTemplate": "loose"
     },
     {
-      "fileMatch": ["^README\\.md$"],
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/^README\\.md$/"
+      ],
       "matchStrings": [
         "version: (?<currentValue>v\\d+\\.\\d+\\.\\d+)"
       ],
