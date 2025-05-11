@@ -27,7 +27,7 @@ type Middleware struct {
 }
 
 // New creates a new middleware instance.
-func New(_ context.Context, config *Config, next http.Handler, _ string) (http.Handler, error) {
+func New(_ context.Context, next http.Handler, config *Config, _ string) (http.Handler, error) {
 	return &Middleware{
 		next:  next,
 		depth: config.Depth,
