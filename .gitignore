@@ -1,0 +1,41 @@
+# Go
+#
+# Binaries for programs and plugins
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Test binary, built with `go test -c`
+*.test
+
+# Output of the go coverage tool, specifically from Makefile
+coverage.out
+
+# Go workspace file
+go.work
+
+# Dependency directory (if you run 'go mod vendor')
+/vendor/
+
+# Environment configuration.
+.envrc
+.env
+
+# IDE / Editor specific files
+.idea/
+.vscode/
+*.swp
+*~
+*.sublime-project
+*.sublime-workspace
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
