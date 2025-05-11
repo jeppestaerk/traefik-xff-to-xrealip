@@ -11,6 +11,86 @@ For incoming requests, this plugin:
 -   🎯 Extracts an IP from this list based on the configured `depth` (index). Defaults to `depth: 0` (the first IP).
 -   ✍️ Overwrites `X-Real-Ip` with that value if the depth is valid for the list of IPs.
 
+## 🚀 TL;DR
+
+### Static configuration
+
+> [!IMPORTANT]
+> Add to [Static configuration](https://doc.traefik.io/traefik/reference/static-configuration/overview/)
+
+#### Plug In Configuration
+
+> [!NOTE]
+> Ensure you are using the [latest version](https://github.com/jeppestaerk/traefik-xff-to-xrealip/releases).
+
+```yaml
+## Static configuration
+experimental:
+  plugins:
+    traefik-xff-to-xrealip:
+      moduleName: github.com/jeppestaerk/traefik-xff-to-xrealip
+      version: v0.0.1
+```
+
+#### Entry Points Configuration:
+
+> [!WARNING]
+> Remember to add your proxy IPs to the `forwardedHeaders.trustedIPs` entryPoint configuration in Traefik. Without this, Traefik won't trust the X-Forwarded-For header from your proxies, and this plugin won't work properly.
+
+```yaml
+## Static configuration
+entryPoints:
+  web:
+    address: ":80"
+    forwardedHeaders:
+      trustedIPs:
+        - "127.0.0.1/32"
+        - "192.168.1.5" # Your proxy IP eg. the ip of the machine running Cloudflare tunnel
+        - "172.16.0.0/16" # trust everytihing from docker eg. if running Cloudflare tunnel in docker container
+  websecure:
+    address: ":443"
+    forwardedHeaders:
+      trustedIPs:
+        - "127.0.0.1/32"
+        - "192.168.1.5" # Your proxy IP eg. the ip of the machine running Cloudflare tunnel
+        - "172.16.0.0/16" # trust everytihing from docker eg. if running Cloudflare tunnel in docker container
+```
+
+> [!NOTE]
+> Remember to add `forwardedHeaders.trustedIPs` to all your entryPoints, especially if you redirect HTTP to HTTPS.
+
+### Dynamic configuration
+
+> [!IMPORTANT]
+> Add to [dynamic configuration](https://doc.traefik.io/traefik/reference/dynamic-configuration/file/)
+
+#### Middleware Configuration:
+
+```yaml
+## Dynamic configuration (e.g., in a file provider)
+http:
+  middlewares:
+    xff2realip: # Name your middleware instance
+      plugin:
+        traefik-xff-to-xrealip: {} # Default depth (0)
+        # or for a custom depth:
+        # traefik-xff-to-xrealip:
+        #   depth: 1
+```
+
+#### Router Configuration:
+
+```yaml
+## Dynamic configuration
+http:
+  routers:
+    my-app:
+      rule: Host(`myapp.example.com`)
+      service: my-app
+      middlewares:
+        - xff2realip@file
+```
+
 ## 🧪 Examples
 
 ### Default Behavior (depth: 0)
@@ -18,6 +98,15 @@ For incoming requests, this plugin:
 #### Incoming Request:
 ```
 X-Forwarded-For: 203.0.113.5, 10.0.0.1, 192.168.1.100
+```
+
+#### Middleware Configuration:
+```yaml
+http:
+  middlewares:
+    xff2realip:
+      plugin:
+        traefik-xff-to-xrealip: {}
 ```
 
 #### After Plugin (with default or `depth: 0`):
@@ -36,7 +125,7 @@ X-Forwarded-For: 203.0.113.5, 10.0.0.1, 192.168.1.100
 ```yaml
 http:
   middlewares:
-    xff2realip-depth1:
+    xff2realip:
       plugin:
         traefik-xff-to-xrealip:
           depth: 1 # Selects the second IP (index 1)
@@ -65,7 +154,7 @@ To use the default depth (0, i.e., the first IP):
 ```yaml
 http:
   middlewares:
-    xff2realip-default:
+    xff2realip:
       plugin:
         traefik-xff-to-xrealip: {} # No depth specified, defaults to 0
 ```
@@ -74,7 +163,7 @@ To specify a custom depth (e.g., to select the second IP, index 1):
 ```yaml
 http:
   middlewares:
-    xff2realip-custom-depth:
+    xff2realip:
       plugin:
         traefik-xff-to-xrealip:
           depth: 1
