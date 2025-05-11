@@ -44,6 +44,16 @@
       "depNameTemplate": "go",
       "datasourceTemplate": "golang-version",
       "versioningTemplate": "loose"
+    },
+    {
+      "fileMatch": ["^README\\.md$"],
+      "matchStrings": [
+        "version: (?<currentValue>v\\d+\\.\\d+\\.\\d+)"
+      ],
+      "depNameTemplate": "traefik-xff-to-xrealip",
+      "datasourceTemplate": "github-releases",
+      "packageNameTemplate": "jeppestaerk/traefik-xff-to-xrealip",
+      "extractVersionTemplate": "^(?<version>v\\d+\\.\\d+\\.\\d+)$"
     }
   ]
 }
