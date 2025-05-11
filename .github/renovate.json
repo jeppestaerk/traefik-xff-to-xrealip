@@ -1,0 +1,49 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "rebaseWhen": "behind-base-branch",
+  "dependencyDashboard": true,
+  "dependencyDashboardApproval": false,
+  "dependencyDashboardAutoclose": true,
+  "prCreation": "immediate",
+  "labels": ["dependencies", "no-stale"],
+  "commitMessagePrefix": "⬆️",
+  "commitMessageTopic": "{{depName}}",
+  "extends": ["config:recommended"],
+  "prConcurrentLimit": 10,
+  "prHourlyLimit": 5,
+  "platformAutomerge": true,
+  "automerge": true,
+  "automergeType": "pr",
+  "automergeStrategy": "squash",
+  "regexManagers": [
+    {
+      "fileMatch": ["^\\.github/workflows/[^/]+\\.ya?ml$"],
+      "matchStrings": [
+        "env:\\s*(?:[^#\\n]*\\s+)*GOLANGCI_LINT_VERSION: (?<currentValue>.*?)\\s"
+      ],
+      "depNameTemplate": "golangci-lint",
+      "datasourceTemplate": "github-releases",
+      "packageNameTemplate": "golangci/golangci-lint",
+      "extractVersionTemplate": "^v(?<version>.*)$"
+    },
+    {
+      "fileMatch": ["^\\.github/workflows/[^/]+\\.ya?ml$"],
+      "matchStrings": [
+        "env:\\s*(?:[^#\\n]*\\s+)*YAEGI_VERSION: (?<currentValue>.*?)\\s"
+      ],
+      "depNameTemplate": "yaegi",
+      "datasourceTemplate": "github-releases",
+      "packageNameTemplate": "traefik/yaegi",
+      "extractVersionTemplate": "^v(?<version>.*)$"
+    },
+    {
+      "fileMatch": ["^\\.github/workflows/[^/]+\\.ya?ml$"],
+      "matchStrings": [
+        "go-version: ['\"]?(?<currentValue>[\\d.]+)"
+      ],
+      "depNameTemplate": "go",
+      "datasourceTemplate": "golang-version",
+      "versioningTemplate": "loose"
+    }
+  ]
+}
