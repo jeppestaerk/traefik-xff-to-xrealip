@@ -1,25 +1,50 @@
 # traefik-xff-to-xrealip
 
-A [Traefik](https://traefik.io) plugin that sets the `X-Real-Ip` header based on the **first IP address** in the `X-Forwarded-For` header.
+A [Traefik](https://traefik.io) plugin that sets the `X-Real-Ip` header based on a **configurable IP address** (by index/depth) in the `X-Forwarded-For` header. By default, it uses the first IP.
 
 ## 🔧 What It Does
 
 For incoming requests, this plugin:
 
-- Looks for the `X-Forwarded-For` header
-- Extracts the first IP in the comma-separated list
-- Overwrites `X-Real-Ip` with that value
+- Looks for the `X-Forwarded-For` header.
+- Splits the header value by commas to get a list of IP addresses.
+- Extracts an IP from this list based on the configured `depth` (index). Defaults to `depth: 0` (the first IP).
+- Overwrites `X-Real-Ip` with that value if the depth is valid for the list of IPs.
 
 ## 🧪 Example
 
-### Incoming Request:
+### Default Behavior (depth: 0)
+
+#### Incoming Request:
 ```
-X-Forwarded-For: 203.0.113.5, 10.0.0.1
+X-Forwarded-For: 203.0.113.5, 10.0.0.1, 192.168.1.100
 ```
 
-### After Plugin:
+#### After Plugin (with default or `depth: 0`):
 ```
 X-Real-Ip: 203.0.113.5
+```
+
+### Configured Depth (e.g., depth: 1)
+
+#### Incoming Request:
+```
+X-Forwarded-For: 203.0.113.5, 10.0.0.1, 192.168.1.100
+```
+
+#### Middleware Configuration:
+```yaml
+http:
+  middlewares:
+    xff2realip-depth1:
+      plugin:
+        traefik-xff-to-xrealip:
+          depth: 1 # Selects the second IP (index 1)
+```
+
+#### After Plugin (with `depth: 1`):
+```
+X-Real-Ip: 10.0.0.1
 ```
 
 ## 🚀 Usage
@@ -30,18 +55,29 @@ X-Real-Ip: 203.0.113.5
 experimental:
   plugins:
     traefik-xff-to-xrealip:
-      moduleName: github.com/YOUR_GITHUB_USERNAME/traefik-xff-to-xrealip
-      version: v0.1.0
+      moduleName: github.com/jeppestaerk/traefik-xff-to-xrealip
+      version: v0.0.1
 ```
 
 ### 2. Dynamic Configuration
 
+To use the default depth (0, i.e., the first IP):
 ```yaml
 http:
   middlewares:
-    xff2realip:
+    xff2realip-default:
       plugin:
-        traefik-xff-to-xrealip: {}
+        traefik-xff-to-xrealip: {} # No depth specified, defaults to 0
+```
+
+To specify a custom depth (e.g., to select the second IP, index 1):
+```yaml
+http:
+  middlewares:
+    xff2realip-custom-depth:
+      plugin:
+        traefik-xff-to-xrealip:
+          depth: 1
 ```
 
 Apply the middleware to your routers:
