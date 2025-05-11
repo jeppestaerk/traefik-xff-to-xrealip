@@ -2,11 +2,14 @@
 
 displayName: "🎯 X-Real-IP from X-Forwarded-For"
 type: middleware
+iconPath: .assets/icon.png
 import: github.com/jeppestaerk/traefik-xff-to-xrealip
+
 summary: |
   ✨ Pinpoint the correct client IP! This Traefik plugin intelligently sets `X-Real-Ip` 
   by selecting an IP from the `X-Forwarded-For` header using a customizable `depth` (index).
   🌐 Ideal for multi-proxy setups (e.g., behind Cloudflare). Get the real client IP, every time! 🚀
+
 testData:
   depth: 1 # Example: pick the second IP (index 1)
   Headers:
