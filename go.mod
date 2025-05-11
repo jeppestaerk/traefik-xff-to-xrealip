@@ -1,3 +1,3 @@
-module github.com/jeppestaerk/traefikxfftoxrealip
+module github.com/jeppestaerk/traefik-xff-to-xrealip
 
 go 1.21

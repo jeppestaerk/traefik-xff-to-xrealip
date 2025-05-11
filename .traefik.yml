@@ -1,24 +1,14 @@
 # .traefik.yml
 
-apiVersion: traefik.containo.us/v1alpha1
-kind: Plugin
-name: traefik-xff-to-xrealip
-description: |
+displayName: traefik-xff-to-xrealip
+type: middleware
+import: github.com/jeppestaerk/traefik-xff-to-xrealip
+summary: |
   A Traefik middleware plugin that rewrites the X-Real-Ip header
   using the first IP address from the X-Forwarded-For header.
   Useful when Traefik is behind Cloudflare or other reverse proxies.
-
-tags:
-  - headers
-  - ip
-  - middleware
-  - reverse-proxy
-  - real-ip
-
-source: github.com/jeppestaerk/traefik-xff-to-xrealip
-
-projectURL: https://github.com/jeppestaerk/traefik-xff-to-xrealip
-
-maintainers:
-  - name: Jeppe Stærk
-    email: jeppe@staerk.dev
+testData:
+  Headers:
+    X-Forwarded-For:
+      - 203.0.113.5
+      - 10.0.0.1

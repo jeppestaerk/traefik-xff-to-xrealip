@@ -1,4 +1,4 @@
-package traefikxfftoxrealip
+package traefik_xff_to_xrealip
 
 import (
 	"context"
