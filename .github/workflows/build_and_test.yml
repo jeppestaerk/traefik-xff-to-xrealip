@@ -1,0 +1,82 @@
+name: Traefik Plugin CI
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*.*.*']
+  pull_request:
+
+jobs:
+  main:
+    name: Test on ${{ matrix.os }} with Go ${{ matrix.go-version }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        go-version: ['1.21', '1.x']
+    env:
+      GOLANGCI_LINT_VERSION: v2.1.6
+      YAEGI_VERSION: v0.16.1
+      CGO_ENABLED: 0
+    defaults:
+      run:
+        working-directory: ${{ github.workspace }}/go/src/github.com/${{ github.repository }}
+
+    steps:
+      - name: Set up Go ${{ matrix.go-version }}
+        uses: actions/setup-go@v2
+        with:
+          go-version: ${{ matrix.go-version }}
+
+      - name: Check out code
+        uses: actions/checkout@v2
+        with:
+          path: go/src/github.com/${{ github.repository }}
+          fetch-depth: 0
+
+      - name: Cache Go modules and build cache
+        uses: actions/cache@v3
+        with:
+          path: |
+            ${{ github.workspace }}/go/pkg/mod
+            ~/.cache/go-build
+            ~/Library/Caches/go-build
+            %LocalAppData%\go-build
+          key: ${{ runner.os }}-${{ matrix.go-version }}-go-${{ hashFiles('**/go.sum') }}
+          restore-keys: |
+            ${{ runner.os }}-${{ matrix.go-version }}-go-
+
+      - name: Setup GOPATH
+        run: go env -w GOPATH=${{ github.workspace }}/go
+
+      - name: Check and get dependencies
+        run: |
+          go mod tidy
+          git diff --exit-code go.mod
+          # git diff --exit-code go.sum
+          go mod download
+          go mod vendor
+          # git diff --exit-code ./vendor/
+
+      - name: Install golangci-lint ${{ env.GOLANGCI_LINT_VERSION }}
+        if: runner.os != 'Windows'
+        run: curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin ${GOLANGCI_LINT_VERSION}
+
+      - name: Install Yaegi ${{ env.YAEGI_VERSION }}
+        if: runner.os != 'Windows'
+        run: curl -sfL https://raw.githubusercontent.com/traefik/yaegi/master/install.sh | bash -s -- -b $(go env GOPATH)/bin ${YAEGI_VERSION}
+
+      - name: Lint and Standard Tests (Linux/macOS)
+        if: runner.os != 'Windows'
+        run: make
+
+      - name: Run tests with Yaegi (Linux/macOS)
+        if: runner.os != 'Windows'
+        run: make yaegi_test
+        env:
+          GOPATH: ${{ github.workspace }}/go
+
+      - name: Run standard Go tests (Windows)
+        if: runner.os == 'Windows'
+        run: go test -v -cover ./...
