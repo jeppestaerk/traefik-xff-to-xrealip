@@ -29,7 +29,7 @@ experimental:
   plugins:
     traefik-xff-to-xrealip:
       moduleName: github.com/jeppestaerk/traefik-xff-to-xrealip
-      version: v0.1.0
+      version: v0.1.2
 ```
 
 #### Entry Points Configuration:
@@ -145,7 +145,7 @@ experimental:
   plugins:
     traefik-xff-to-xrealip:
       moduleName: github.com/jeppestaerk/traefik-xff-to-xrealip
-      version: v0.1.0
+      version: v0.1.2
 ```
 
 ### 2. Dynamic Configuration
