@@ -150,7 +150,7 @@ func TestXRealIpRewrite(t *testing.T) {
 
 			cfg := CreateConfig()
 			cfg.Depth = tt.configDepth // Set the depth from the test case
-			mw, err := New(context.Background(), cfg, next, "test-xff-to-realip")
+			mw, err := New(context.Background(), next, cfg, "test-xff-to-realip")
 			if err != nil {
 				t.Fatalf("New() error = %v", err)
 			}
