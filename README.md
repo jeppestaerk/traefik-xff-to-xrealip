@@ -1,4 +1,4 @@
-<img src="https://github.com/jeppestaerk/traefik-xff-to-xrealip/blob/main/.assets/icon.svg?raw=true" alt="logo" align="center" height="48" width="48">
+<p align="center"><img src="https://github.com/jeppestaerk/traefik-xff-to-xrealip/blob/main/.assets/icon.svg?raw=true" alt="logo" height="96" width="96"></p>
 
 [![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/jeppestaerk/traefik-xff-to-xrealip?sort=semver)](https://github.com/jeppestaerk/traefik-xff-to-xrealip/releases/latest) 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)

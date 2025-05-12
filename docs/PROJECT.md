@@ -1,4 +1,4 @@
-<img src="https://github.com/jeppestaerk/traefik-xff-to-xrealip/blob/main/.assets/icon.svg?raw=true" alt="logo" align="center" height="48" width="48">
+<p align="center"><img src="https://github.com/jeppestaerk/traefik-xff-to-xrealip/blob/main/.assets/icon.svg?raw=true" alt="logo" height="96" width="96"></p>
 
 # Project Specification: Traefik X-Real-IP from X-Forwarded-For Plugin
 
