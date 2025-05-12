@@ -2,13 +2,12 @@
 
 # 🎯 Traefik X-Real-IP from X-Forwarded-For Plugin
 
-[![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/jeppestaerk/traefik-xff-to-xrealip?sort=semver&color=blue)](https://github.com/jeppestaerk/traefik-xff-to-xrealip/releases/latest) 
-[![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/jeppestaerk/traefik-xff-to-xrealip/build_and_test.yml?branch=main)](https://github.com/jeppestaerk/traefik-xff-to-xrealip/actions/workflows/build_and_test.yml) 
-[![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/jeppestaerk/traefik-xff-to-xrealip/build_and_test.yml?branch=main&label=test)](https://github.com/jeppestaerk/traefik-xff-to-xrealip/actions/workflows/build_and_test.yml) 
-[![Traefik Plugin Catalog](https://img.shields.io/badge/traefik_plugin_catalog-traefik--xff--to--xrealip-blue)](https://plugins.traefik.io/plugins/68205916e4f1c0f6442c2669/x-real-ip-from-x-forwarded-for)
+[![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/jeppestaerk/traefik-xff-to-xrealip?sort=semver&color=blue&logo=github)](https://github.com/jeppestaerk/traefik-xff-to-xrealip/releases/latest) 
+[![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/jeppestaerk/traefik-xff-to-xrealip/build_and_test.yml?branch=main&logo=go)](https://github.com/jeppestaerk/traefik-xff-to-xrealip/actions/workflows/build_and_test.yml) 
+[![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/jeppestaerk/traefik-xff-to-xrealip/build_and_test.yml?branch=main&label=test&logo=go)](https://github.com/jeppestaerk/traefik-xff-to-xrealip/actions/workflows/build_and_test.yml) 
+[![Traefik Plugin Catalog](https://img.shields.io/badge/traefik_plugin_catalog-traefik--xff--to--xrealip-blue?logo=traefikproxy)](https://plugins.traefik.io/plugins/68205916e4f1c0f6442c2669/x-real-ip-from-x-forwarded-for)
 
 A [Traefik](https://traefik.io) plugin that intelligently sets the `X-Real-Ip` header by selecting a **configurable IP address** (by index/depth) from the `X-Forwarded-For` header. By default, it uses the first IP, ensuring your backend services see the correct client IP, even behind multiple proxies! 🚀
-
 
 ## 🔧 What It Does
 
@@ -19,7 +18,7 @@ For incoming requests, this plugin:
 -   🎯 Extracts an IP from this list based on the configured `depth` (index). Defaults to `depth: 0` (the first IP).
 -   ✍️ Overwrites `X-Real-Ip` with that value if the depth is valid for the list of IPs.
 
-## 🚀 TL;DR
+## 🚀 Usage
 
 ### Static configuration
 
@@ -35,7 +34,7 @@ experimental:
   plugins:
     traefik-xff-to-xrealip:
       moduleName: github.com/jeppestaerk/traefik-xff-to-xrealip
-      version: v0.1.2
+      version: v0.1.3
 ```
 
 #### Entry Points Configuration:
@@ -139,74 +138,6 @@ http:
 X-Real-Ip: 10.0.0.1
 ```
 
-## 🚀 Usage
-
-### 1. Static Traefik Configuration
-
-```yaml
-experimental:
-  plugins:
-    traefik-xff-to-xrealip:
-      moduleName: github.com/jeppestaerk/traefik-xff-to-xrealip
-      version: v0.1.2
-```
-
-### 2. Dynamic Configuration
-
-To use the default depth (0, i.e., the first IP):
-```yaml
-http:
-  middlewares:
-    xff2realip:
-      plugin:
-        traefik-xff-to-xrealip: {} # No depth specified, defaults to 0
-```
-
-To specify a custom depth (e.g., to select the second IP, index 1):
-```yaml
-http:
-  middlewares:
-    xff2realip:
-      plugin:
-        traefik-xff-to-xrealip:
-          depth: 1
-```
-
-Apply the middleware to your routers:
-
-```yaml
-http:
-  routers:
-    my-app:
-      rule: Host(`myapp.example.com`)
-      service: my-app
-      middlewares:
-        - xff2realip@file
-```
-
-## 🌐 Overview
-
-```mermaid
-flowchart TD
-    A[Incoming HTTP Request] --> B{Contains X-Forwarded-For?}
-    B -- No --> Z[Proceed Normally]
-    B -- Yes --> C[Split X-Forwarded-For by ,]
-    C --> D[Extract IP at Configured Depth]
-    D --> E{Valid Depth Index?}
-    E -- No --> Z
-    E -- Yes --> F[Set X-Real-IP Header with Selected IP]
-    F --> G[Forward Request to Backend]
-    Z --> G
-
-    subgraph Configuration
-        H[Static Configuration]
-        I[Dynamic Middleware]
-        J[EntryPoints with trustedIPs]
-    end
-
-    Configuration --> A
-```
-
 ## 📦 Installation
 
 This plugin must be built or declared through Traefik's [experimental plugin system](https://doc.traefik.io/traefik/plugins/overview/).  
@@ -221,7 +152,7 @@ You can run Traefik with plugins using Docker, Kubernetes, or binary.
 go test ./...
 ```
 
-GitHub Actions CI is set up to run tests on every commit or pull request.
+GitHub Actions CI is set up to run build and tests on every commit or pull request.
 
 ## 📝 License
 

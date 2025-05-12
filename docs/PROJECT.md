@@ -108,4 +108,4 @@ http:
 
 ##
 
-[![Traefik Plugin Catalog](https://img.shields.io/badge/traefik_plugin_catalog-traefik--xff--to--xrealip-blue)](https://plugins.traefik.io/plugins/68205916e4f1c0f6442c2669/x-real-ip-from-x-forwarded-for)
+[![Traefik Plugin Catalog](https://img.shields.io/badge/traefik_plugin_catalog-traefik--xff--to--xrealip-blue?logo=traefikproxy)](https://plugins.traefik.io/plugins/68205916e4f1c0f6442c2669/x-real-ip-from-x-forwarded-for)
