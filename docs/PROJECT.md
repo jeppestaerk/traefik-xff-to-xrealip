@@ -105,3 +105,7 @@ http:
 - Add support for fallback behavior if the selected IP index is invalid.
 - Include CIDR-based validation or whitelisting of client IPs.
 - Enhanced logging and debug options.
+
+##
+
+[![Traefik Plugin Catalog](https://img.shields.io/badge/traefik_plugin_catalog-traefik--xff--to--xrealip-blue)](https://plugins.traefik.io/plugins/68205916e4f1c0f6442c2669/x-real-ip-from-x-forwarded-for)

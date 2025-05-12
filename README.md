@@ -61,7 +61,7 @@ entryPoints:
         - "172.16.0.0/16" # trust everytihing from docker eg. if running Cloudflare tunnel in docker container
 ```
 
-Remember to add `forwardedHeaders.trustedIPs` to all your entryPoints, especially if you redirect HTTP to HTTPS.
+Ensure you add `forwardedHeaders.trustedIPs` to all your entryPoints, especially if you redirect HTTP to HTTPS.
 
 ### Dynamic configuration
 
