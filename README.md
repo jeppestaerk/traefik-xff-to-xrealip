@@ -1,17 +1,14 @@
 <p align="center"><img src="https://github.com/jeppestaerk/traefik-xff-to-xrealip/blob/main/.assets/icon.svg?raw=true" alt="logo" height="96" width="96"></p>
 
-[![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/jeppestaerk/traefik-xff-to-xrealip?sort=semver&color=green)](https://github.com/jeppestaerk/traefik-xff-to-xrealip/releases/latest) 
-[![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/jeppestaerk/traefik-xff-to-xrealip/build_and_test.yml?branch=main)](https://github.com/jeppestaerk/traefik-xff-to-xrealip/actions/workflows/build_and_test.yml) 
-[![Go Report Card](https://goreportcard.com/badge/github.com/jeppestaerk/traefik-xff-to-xrealip)](https://goreportcard.com/report/github.com/jeppestaerk/traefik-xff-to-xrealip)
-![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/jeppestaerk/traefik-xff-to-xrealip?color=green)
-[![Traefik Plugin Catalog](https://img.shields.io/badge/plugin_catalog-traefik--xff--to--xrealip-blue)](https://plugins.traefik.io/plugins/68205916e4f1c0f6442c2669/x-real-ip-from-x-forwarded-for)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-
-
-
 # 🎯 Traefik X-Real-IP from X-Forwarded-For Plugin
 
+[![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/jeppestaerk/traefik-xff-to-xrealip?sort=semver&color=blue)](https://github.com/jeppestaerk/traefik-xff-to-xrealip/releases/latest) 
+[![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/jeppestaerk/traefik-xff-to-xrealip/build_and_test.yml?branch=main)](https://github.com/jeppestaerk/traefik-xff-to-xrealip/actions/workflows/build_and_test.yml) 
+[![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/jeppestaerk/traefik-xff-to-xrealip/build_and_test.yml?branch=main&label=test)](https://github.com/jeppestaerk/traefik-xff-to-xrealip/actions/workflows/build_and_test.yml) 
+
 A [Traefik](https://traefik.io) plugin that intelligently sets the `X-Real-Ip` header by selecting a **configurable IP address** (by index/depth) from the `X-Forwarded-For` header. By default, it uses the first IP, ensuring your backend services see the correct client IP, even behind multiple proxies! 🚀
+
+[![Traefik Plugin Catalog](https://img.shields.io/badge/traefik_plugin_catalog-traefik--xff--to--xrealip-blue)](https://plugins.traefik.io/plugins/68205916e4f1c0f6442c2669/x-real-ip-from-x-forwarded-for)
 
 ## 🔧 What It Does
 
@@ -26,13 +23,11 @@ For incoming requests, this plugin:
 
 ### Static configuration
 
-> [!IMPORTANT]
 > Add to [Static configuration](https://doc.traefik.io/traefik/reference/static-configuration/overview/)
 
 #### Plug In Configuration
 
-> [!NOTE]
-> Ensure you are using the [latest version](https://github.com/jeppestaerk/traefik-xff-to-xrealip/releases).
+Ensure you are using the [latest version](https://github.com/jeppestaerk/traefik-xff-to-xrealip/releases)
 
 ```yaml
 ## Static configuration
@@ -45,8 +40,7 @@ experimental:
 
 #### Entry Points Configuration:
 
-> [!WARNING]
-> Remember to add your proxy IPs to the `forwardedHeaders.trustedIPs` entryPoint configuration in Traefik. Without this, Traefik won't trust the X-Forwarded-For header from your proxies, and this plugin won't work properly.
+Remember to add your proxy IPs to the `forwardedHeaders.trustedIPs` entryPoint configuration in Traefik. Without this, Traefik won't trust the X-Forwarded-For header from your proxies, and this plugin won't work properly.
 
 ```yaml
 ## Static configuration
@@ -67,18 +61,16 @@ entryPoints:
         - "172.16.0.0/16" # trust everytihing from docker eg. if running Cloudflare tunnel in docker container
 ```
 
-> [!NOTE]
-> Remember to add `forwardedHeaders.trustedIPs` to all your entryPoints, especially if you redirect HTTP to HTTPS.
+Remember to add `forwardedHeaders.trustedIPs` to all your entryPoints, especially if you redirect HTTP to HTTPS.
 
 ### Dynamic configuration
 
-> [!IMPORTANT]
 > Add to [dynamic configuration](https://doc.traefik.io/traefik/reference/dynamic-configuration/file/)
 
 #### Middleware Configuration:
 
 ```yaml
-## Dynamic configuration (e.g., in a file provider)
+## Dynamic configuration
 http:
   middlewares:
     xff2realip: # Name your middleware instance
@@ -222,6 +214,9 @@ You can run Traefik with plugins using Docker, Kubernetes, or binary.
 
 ## 🧰 Development
 
+![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/jeppestaerk/traefik-xff-to-xrealip?color=green)
+[![Go Report Card](https://goreportcard.com/badge/github.com/jeppestaerk/traefik-xff-to-xrealip)](https://goreportcard.com/report/github.com/jeppestaerk/traefik-xff-to-xrealip)
+
 ```bash
 go test ./...
 ```
@@ -229,5 +224,7 @@ go test ./...
 GitHub Actions CI is set up to run tests on every commit or pull request.
 
 ## 📝 License
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 MIT © 2025 Jeppe Stærk
