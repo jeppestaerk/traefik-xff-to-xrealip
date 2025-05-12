@@ -1,0 +1,18 @@
+flowchart TD
+    A[Incoming HTTP Request] --> B{Contains X-Forwarded-For?}
+    B -- No --> Z[Proceed Normally]
+    B -- Yes --> C[Split X-Forwarded-For by ,]
+    C --> D[Extract IP at Configured Depth]
+    D --> E{Valid Depth Index?}
+    E -- No --> Z
+    E -- Yes --> F[Set X-Real-IP Header with Selected IP]
+    F --> G[Forward Request to Backend]
+    Z --> G
+
+    subgraph Configuration
+        H[Static Configuration]
+        I[Dynamic Middleware]
+        J[EntryPoints with trustedIPs]
+    end
+
+    Configuration --> A

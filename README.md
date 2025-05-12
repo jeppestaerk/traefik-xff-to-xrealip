@@ -1,3 +1,10 @@
+<img src="https://github.com/jeppestaerk/traefik-xff-to-xrealip/blob/main/.assets/icon.svg?raw=true" alt="logo" align="center" height="48" width="48">
+
+[![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/jeppestaerk/traefik-xff-to-xrealip?sort=semver)](https://github.com/jeppestaerk/traefik-xff-to-xrealip/releases/latest) 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/jeppestaerk/traefik-xff-to-xrealip/build_and_test.yml?branch=main)](https://github.com/jeppestaerk/traefik-xff-to-xrealip/actions/workflows/build_and_test.yml) 
+[![Go Report Card](https://goreportcard.com/badge/github.com/jeppestaerk/traefik-xff-to-xrealip)](https://goreportcard.com/report/github.com/jeppestaerk/traefik-xff-to-xrealip) 
+
 # 🎯 Traefik X-Real-IP from X-Forwarded-For Plugin
 
 A [Traefik](https://traefik.io) plugin that intelligently sets the `X-Real-Ip` header by selecting a **configurable IP address** (by index/depth) from the `X-Forwarded-For` header. By default, it uses the first IP, ensuring your backend services see the correct client IP, even behind multiple proxies! 🚀
@@ -179,6 +186,29 @@ http:
       service: my-app
       middlewares:
         - xff2realip@file
+```
+
+## 🌐 Overview
+
+```mermaid
+flowchart TD
+    A[Incoming HTTP Request] --> B{Contains X-Forwarded-For?}
+    B -- No --> Z[Proceed Normally]
+    B -- Yes --> C[Split X-Forwarded-For by ,]
+    C --> D[Extract IP at Configured Depth]
+    D --> E{Valid Depth Index?}
+    E -- No --> Z
+    E -- Yes --> F[Set X-Real-IP Header with Selected IP]
+    F --> G[Forward Request to Backend]
+    Z --> G
+
+    subgraph Configuration
+        H[Static Configuration]
+        I[Dynamic Middleware]
+        J[EntryPoints with trustedIPs]
+    end
+
+    Configuration --> A
 ```
 
 ## 📦 Installation
