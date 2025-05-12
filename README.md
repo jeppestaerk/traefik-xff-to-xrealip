@@ -1,9 +1,13 @@
 <p align="center"><img src="https://github.com/jeppestaerk/traefik-xff-to-xrealip/blob/main/.assets/icon.svg?raw=true" alt="logo" height="96" width="96"></p>
 
-[![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/jeppestaerk/traefik-xff-to-xrealip?sort=semver)](https://github.com/jeppestaerk/traefik-xff-to-xrealip/releases/latest) 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/jeppestaerk/traefik-xff-to-xrealip?sort=semver&color=green)](https://github.com/jeppestaerk/traefik-xff-to-xrealip/releases/latest) 
 [![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/jeppestaerk/traefik-xff-to-xrealip/build_and_test.yml?branch=main)](https://github.com/jeppestaerk/traefik-xff-to-xrealip/actions/workflows/build_and_test.yml) 
-[![Go Report Card](https://goreportcard.com/badge/github.com/jeppestaerk/traefik-xff-to-xrealip)](https://goreportcard.com/report/github.com/jeppestaerk/traefik-xff-to-xrealip) 
+[![Go Report Card](https://goreportcard.com/badge/github.com/jeppestaerk/traefik-xff-to-xrealip)](https://goreportcard.com/report/github.com/jeppestaerk/traefik-xff-to-xrealip)
+![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/jeppestaerk/traefik-xff-to-xrealip?color=green)
+[![Traefik Plugin Catalog](https://img.shields.io/badge/plugin_catalog-traefik--xff--to--xrealip-blue)](https://plugins.traefik.io/plugins/68205916e4f1c0f6442c2669/x-real-ip-from-x-forwarded-for)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+
 
 # 🎯 Traefik X-Real-IP from X-Forwarded-For Plugin
 
