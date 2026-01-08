@@ -16,7 +16,7 @@ jobs:
         os: [ubuntu-latest, macos-latest, windows-latest]
         go-version: ['1.21', '1.x']
     env:
-      GOLANGCI_LINT_VERSION: v2.1.6
+      GOLANGCI_LINT_VERSION: 2.8.0
       YAEGI_VERSION: v0.16.1
       CGO_ENABLED: 0
     defaults:
