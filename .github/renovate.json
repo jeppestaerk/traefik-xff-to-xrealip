@@ -31,8 +31,7 @@
       ],
       "depNameTemplate": "golangci-lint",
       "datasourceTemplate": "github-releases",
-      "packageNameTemplate": "golangci/golangci-lint",
-      "extractVersionTemplate": "^v(?<version>.*)$"
+      "packageNameTemplate": "golangci/golangci-lint"
     },
     {
       "customType": "regex",
@@ -44,8 +43,7 @@
       ],
       "depNameTemplate": "yaegi",
       "datasourceTemplate": "github-releases",
-      "packageNameTemplate": "traefik/yaegi",
-      "extractVersionTemplate": "^v(?<version>.*)$"
+      "packageNameTemplate": "traefik/yaegi"
     },
     {
       "customType": "regex",
